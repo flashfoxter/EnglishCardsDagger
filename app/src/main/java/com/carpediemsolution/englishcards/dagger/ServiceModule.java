@@ -9,10 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Date: 8/26/2016
- * Time: 11:58
- *
- * @author Artur Artikov
+ * Created by Юлия on 18.08.2017.
  */
 
 @Module(includes = {ApiModule.class})

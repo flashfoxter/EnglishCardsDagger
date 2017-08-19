@@ -11,7 +11,9 @@ import com.carpediemsolution.englishcards.model.Card;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * Created by Юлия on 18.08.2017.
+ */
 public class RepositoryHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.list_item__word_text_view)

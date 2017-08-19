@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by Юлия on 18.08.2017.
  */
 
-public class PrefUtils {
+public final class PrefUtils {
 
 	//private static final String PREF_NAME = "github";
 

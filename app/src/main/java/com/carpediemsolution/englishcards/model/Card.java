@@ -13,7 +13,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = DBSchema.CardTable.NAME_ENRUS)
 public class Card {
 
-   @DatabaseField(dataType = DataType.STRING)
+    @DatabaseField(dataType = DataType.STRING)
     @SerializedName("id")
     @Expose
     private String id;
@@ -23,7 +23,7 @@ public class Card {
     @Expose
     private int person_id;
 
-   @DatabaseField(canBeNull = false, dataType = DataType.STRING)
+    @DatabaseField(canBeNull = false, dataType = DataType.STRING)
     @SerializedName("theme")
     @Expose
     private String theme;

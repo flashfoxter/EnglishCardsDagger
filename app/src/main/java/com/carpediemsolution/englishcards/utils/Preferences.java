@@ -3,7 +3,7 @@ package com.carpediemsolution.englishcards.utils;
 /**
  * Created by Юлия on 01.08.2017.
  */
-public class Preferences {
+public final class Preferences {
 
     public static final String CULTURE_ART = "Culture and Art";
     public static final String MODERN_TECHNOLOGIES = "Modern technologies";

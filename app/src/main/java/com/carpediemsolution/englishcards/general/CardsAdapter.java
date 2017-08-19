@@ -9,7 +9,9 @@ import com.carpediemsolution.englishcards.model.Card;
 
 import java.util.List;
 
-
+/**
+ * Created by Юлия on 18.08.2017.
+ */
 public class CardsAdapter extends BaseAdapter<RepositoryHolder, Card> {
 
     public CardsAdapter(@NonNull List<Card> items) {

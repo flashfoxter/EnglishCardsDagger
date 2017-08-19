@@ -8,6 +8,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Юлия on 18.08.2017.
+ */
 
 public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder, T> extends RecyclerView.Adapter<VH> {
 

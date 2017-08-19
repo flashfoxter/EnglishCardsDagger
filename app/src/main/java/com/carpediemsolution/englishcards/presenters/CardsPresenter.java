@@ -14,7 +14,9 @@ import javax.inject.Inject;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-
+/**
+ * Created by Юлия on 18.08.2017.
+ */
 @InjectViewState
 public class CardsPresenter extends MvpPresenter<CardsView> {
 

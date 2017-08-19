@@ -4,7 +4,7 @@ package com.carpediemsolution.englishcards.utils;
  * Created by Юлия on 21.03.2017.
  */
 
-public class DBSchema {
+public final class DBSchema {
 
     public static final class CardTable {
         public static final String NAME_ENRUS= "enrus_card";
