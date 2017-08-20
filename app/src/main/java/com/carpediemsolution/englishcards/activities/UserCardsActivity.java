@@ -130,8 +130,14 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
     }
 
     @Override
-    public void showSuccess() {
+    public void showSuccess(Card card) {
+        adapter.remove(card);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showSuccess() {
+
     }
 
     @Override
@@ -171,7 +177,6 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 cardsPresenter.deleteCard(card);
-                adapter.remove(card);
             }
         })
                 .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {

@@ -55,6 +55,7 @@ public class InsertCardPresenter extends MvpPresenter<InsertCardView> {
             try{
             databaseHelper.getCardDAO().create(card);
                 Log.d(LOG_TAG, "created " + card);
+                getViewState().showSuccess(card);
             }
             catch (SQLException e){
                 Log.d(LOG_TAG, e.toString());

@@ -79,6 +79,7 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
         if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
             try {
                 databaseHelper.getCardDAO().delete(card);
+                getViewState().showSuccess(card);
                 Log.d(LOG_TAG,"onResponseFailure " + card);
             } catch (SQLException e) {
                 getViewState().showError();
@@ -87,7 +88,7 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
     }
 
     private void isCompleted(Card card) {
-        getViewState().showSuccess();
+        getViewState().showSuccess(card);
         try {
             databaseHelper.getCardDAO().delete(card);
             Log.d(LOG_TAG,"isCompleted " + card);
