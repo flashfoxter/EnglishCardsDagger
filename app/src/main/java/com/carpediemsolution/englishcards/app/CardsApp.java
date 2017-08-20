@@ -24,5 +24,4 @@ public class CardsApp extends Application {
 	public static AppComponent getAppComponent() {
 		return sAppComponent;
 	}
-
 }

@@ -77,7 +77,7 @@ public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder, T> extends
         }
     }
 
-    private void remove(T item) {
+    public void remove(T item) {
         int position = mItems.indexOf(item);
         if (position > -1) {
             mItems.remove(position);

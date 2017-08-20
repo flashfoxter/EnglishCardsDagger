@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
+import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.presenters.InsertCardPresenter;
@@ -75,6 +76,8 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_new_card);
         ButterKnife.bind(this);
+
+        loadingView = LoadingDialog.view(getSupportFragmentManager());
 
         wordEditText.setFilters(UIutils.setSizeForCardEditText());
         translateEditText.setFilters(UIutils.setSizeForCardEditText());
@@ -180,7 +183,6 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         return true;

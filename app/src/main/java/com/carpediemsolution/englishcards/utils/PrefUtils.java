@@ -2,7 +2,9 @@ package com.carpediemsolution.englishcards.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.carpediemsolution.englishcards.activities.UserCardsActivity;
 import com.carpediemsolution.englishcards.app.CardsApp;
 
 import java.util.Date;
@@ -59,5 +61,12 @@ public final class PrefUtils {
         return token;
     }
 
+    public static String getUserToken(){
+        String token = getTokenPrefs().getString(Preferences.TOKEN, "");
+        if (CardUtils.isEmptyToken(token)) {
+            token = getAnonTokenPrefs().getString(Preferences.ANON_TOKEN, "");
+            }
 
+        return token;
+    }
 }

@@ -49,13 +49,12 @@ public class InsertCardPresenter extends MvpPresenter<InsertCardView> {
             cardsService
                     .uploadCards(token, card)
                     .doOnSubscribe(getViewState()::showLoading)
-                    .doOnTerminate(getViewState()::hideLoading);
-                  //  .subscribe(getViewState()::showSuccess, throwable -> getViewState().showError());
+                    .doOnTerminate(getViewState()::hideLoading)
+                    .subscribe(getViewState()::showSuccess, throwable -> getViewState().showError());
 
             try{
             databaseHelper.getCardDAO().create(card);
                 Log.d(LOG_TAG, "created " + card);
-              //  Log.d(LOG_TAG, "added cards  " + databaseHelper.getCardDAO().getAllTasks());
             }
             catch (SQLException e){
                 Log.d(LOG_TAG, e.toString());

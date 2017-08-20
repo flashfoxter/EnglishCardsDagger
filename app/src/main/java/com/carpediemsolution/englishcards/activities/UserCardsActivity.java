@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
@@ -33,12 +35,13 @@ import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 import com.carpediemsolution.englishcards.views.UserCardsView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 
 public class UserCardsActivity extends MvpAppCompatActivity implements UserCardsView,
         BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener {
@@ -53,12 +56,10 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-
-    private LoadingView loadingView;
     private CardsAdapter adapter;
+    private LoadingView loadingView;
 
     private static final String LOG_TAG = "ServerCardsActivity";
-
 
     @OnClick(R.id.fab)
     public void onClick() {
@@ -72,13 +73,13 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
         setContentView(R.layout.activity_cards_main);
         ButterKnife.bind(this);
 
-        loadingView = LoadingDialog.view(getSupportFragmentManager());
-
         recyclerView.setLayoutManager(new GridLayoutManager(UserCardsActivity.this, 3));
         recyclerView.setEmptyView(mEmptyView);
         adapter = new CardsAdapter(new ArrayList<>());
         adapter.attachToRecyclerView(recyclerView);
         adapter.setOnItemClickListener(this);
+
+        loadingView = LoadingDialog.view(getSupportFragmentManager());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
@@ -106,7 +107,6 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
         });
     }
 
-
     @Override
     public void onItemClick(@NonNull Card item) {
         cardsPresenter.onItemClick(item);
@@ -114,7 +114,24 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
 
     @Override
     public void showError() {
-        adapter.clear();
+        Toast.makeText(UserCardsActivity.this, R.string.delete_cancel,
+                Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoading() {
+        loadingView.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingView.hideLoading();
+    }
+
+    @Override
+    public void showSuccess() {
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -128,13 +145,41 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
         String dialogMessage = UIutils.dialogMessage(card);
         builder.setTitle(card.getWord() + " ~ " + UIutils.returnTheme(card))
                 .setMessage(card.getTranslate() + "\n\n" + dialogMessage)
-                .setPositiveButton(getString(R.string.add_card), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //  addCard(mCard);
+                        openDeleteDialog(card);
                     }
                 })
-                .show();
+                .setNegativeButton(getString(R.string.edit), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                     /**  как передавать данные от презентера к презентеру? */
+                        /*   Intent intent = new Intent(UserCardsActivity.this, EditCardActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("card", card.getId()); //Your id
+                        intent.putExtras(b);
+                        startActivity(intent);*/
+                    }
+                }).show();
+    }
+
+    protected void openDeleteDialog(@NonNull final Card card) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserCardsActivity.this, R.style.MyTheme_Dark_Dialog);
+        builder.setMessage(getString(R.string.are_you_sure));
+        builder.setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                cardsPresenter.deleteCard(card);
+                adapter.remove(card);
+            }
+        })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override

@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-
+//для передачи данных...
 @Module
 public class BusModule {
     @Provides

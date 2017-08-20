@@ -5,4 +5,6 @@ package com.carpediemsolution.englishcards.views;
  */
 
 public interface CardsByThemeView {
+
+    /** отображение карточек с фильтром по теме */
 }

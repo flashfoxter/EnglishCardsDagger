@@ -11,12 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 public class ServerSortedCardsActivity extends AppCompatActivity  {
     private static final String LOG_TAG = "ServerListActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    /**  как передавать данные от презентера к презентеру? */
       /*  String theme = returnTheme();
 
         setContentView(R.layout.activity_cards_server);

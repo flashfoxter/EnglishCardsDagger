@@ -116,7 +116,7 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
 
     @Override
     public void showCards(@NonNull List<Card> cards) {
-       adapter.changeDataSet(cards);
+        adapter.changeDataSet(cards);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
                 .setPositiveButton(getString(R.string.add_card), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //  addCard(mCard);
+                        cardsPresenter.addCard(card);
                     }
                 })
                 .show();
@@ -150,8 +150,8 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
                 return true;
             }
             case (R.id.action_my_cards): {
-                 Intent intent = new Intent(ServerCardsActivity.this, UserCardsActivity.class);
-                  startActivity(intent);
+                Intent intent = new Intent(ServerCardsActivity.this, UserCardsActivity.class);
+                startActivity(intent);
                 return true;
             }
 

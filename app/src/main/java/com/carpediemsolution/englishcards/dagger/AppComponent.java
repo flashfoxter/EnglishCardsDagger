@@ -34,4 +34,6 @@ public interface AppComponent {
     void inject(UserCardsPresenter userCardsPresenter);
 
     void inject(CardsApp cardsApp);
+
+   // void inject(CardsPresenterTest cardsPresenterTest);
 }

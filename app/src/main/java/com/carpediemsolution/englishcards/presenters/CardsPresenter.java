@@ -1,13 +1,20 @@
 package com.carpediemsolution.englishcards.presenters;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
+import com.carpediemsolution.englishcards.dagger.AppComponent;
+import com.carpediemsolution.englishcards.dao.DatabaseHelper;
+import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.webApi.WebService;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.views.CardsView;
+
+import java.sql.SQLException;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -24,6 +31,8 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
 
     @Inject
     WebService cardsService;
+    @Inject
+    DatabaseHelper databaseHelper;
 
     public CardsPresenter() {
         CardsApp.getAppComponent().inject(this);
@@ -43,5 +52,17 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getViewState()::showCards, throwable -> getViewState().showError());
+    }
+
+    public void addCard(Card card) {
+        PrefUtils.insertToken();
+
+        card.setId(String.valueOf(UUID.randomUUID()));
+        try {
+            databaseHelper.getCardDAO().create(card);
+            Log.d(LOG_TAG, "created " + card);
+        } catch (SQLException e) {
+            Log.d(LOG_TAG, e.toString());
+        }
     }
 }
