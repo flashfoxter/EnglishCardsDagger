@@ -27,13 +27,9 @@ import com.carpediemsolution.englishcards.views.InsertCardView;
 import com.carpediemsolution.englishcards.utils.UIutils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
-
 
 public class InsertNewCardActivity extends MvpAppCompatActivity implements InsertCardView, ErrorView {
 
@@ -47,28 +43,16 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
     EditText descriptionEditText;
 
     private static final String LOG_TAG = "InsertActivity";
-    private Card card;
+    private String theme;
     private LoadingView loadingView;
-
-    @OnTextChanged(R.id.new_card_word)
-    public void setCardWord(CharSequence s) {
-        card.setWord(s.toString());
-    }
-
-    @OnTextChanged(R.id.new_card_translate)
-    public void setCardTranslate(CharSequence s) {
-        card.setTranslate(s.toString());
-    }
-
-    @OnTextChanged(R.id.new_card_translate)
-    public void setCardDescription(CharSequence s) {
-        card.setDescription(s.toString());
-    }
 
     @OnClick(R.id.fab_new_card)
     public void onClick() {
-        Log.d(LOG_TAG, card.getWord());
-        insertCardPresenter.saveCard(card);
+        String word = wordEditText.getText().toString();
+        String translate = translateEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
+
+        insertCardPresenter.saveCard(word, translate, description, theme);
     }
 
     @Override
@@ -85,9 +69,6 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
 
         Toolbar toolbarTheme = (Toolbar) findViewById(R.id.toolbar_card_theme);
         setSupportActionBar(toolbarTheme);
-        card = new Card();
-        card.setId(String.valueOf(UUID.randomUUID()));
-        card.setPerson_id(0);
     }
 
     @Override
@@ -104,11 +85,12 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
     public void showError() {
         Toast.makeText(InsertNewCardActivity.this, R.string.error_inet,
                 Toast.LENGTH_SHORT).show();
+        Log.d(LOG_TAG, "Error inet");
     }
 
     @Override
     public void showSuccess(Card card) {
-        Intent intent = new Intent(InsertNewCardActivity.this, ServerCardsActivity.class);
+        Intent intent = new Intent(InsertNewCardActivity.this, UserCardsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -132,49 +114,49 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
 
                 switch (selectedItem) {
                     case (Preferences.CULTURE_ART):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_CULTURE_ART);
+                        theme = DBSchema.CardTable.Themes.THEME_CULTURE_ART;
                         break;
                     case (Preferences.MODERN_TECHNOLOGIES):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES);
+                        theme = DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES;
                         break;
                     case (Preferences.SOCIETY_POLITICS):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS);
+                        theme = DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS;
                         break;
                     case (Preferences.ADVENTURE_TRAVEL):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL);
+                        theme = DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL;
                         break;
                     case (Preferences.NATURE_WEATHER):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_NATURE_WEATHER);
+                        theme = DBSchema.CardTable.Themes.THEME_NATURE_WEATHER;
                         break;
                     case (Preferences.EDUCATION_PROFESSION):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION);
+                        theme = DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION;
                         break;
                     case (Preferences.APPEARANCE_CHARACTER):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER);
+                        theme = DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER;
                         break;
                     case (Preferences.CLOTHES_FASHION):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION);
+                        theme = DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION;
                         break;
                     case (Preferences.SPORT):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_SPORT);
+                        theme = DBSchema.CardTable.Themes.THEME_SPORT;
                         break;
                     case (Preferences.FAMILY_RELATIONSHIP):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP);
+                        theme = DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP;
                         break;
                     case (Preferences.ORDER_OF_DAY):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY);
+                        theme = DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY;
                         break;
                     case (Preferences.HOBBIES_FREE_TIME):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME);
+                        theme = DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME;
                         break;
                     case (Preferences.CUSTOMS_TRADITIONS):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS);
+                        theme = DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS;
                         break;
                     case (Preferences.SHOPPING):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_SHOPPING);
+                        theme = DBSchema.CardTable.Themes.THEME_SHOPPING;
                         break;
                     case (Preferences.FOOD_DRINKS):
-                        card.setTheme(DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
+                        theme = DBSchema.CardTable.Themes.THEME_FOOD_DRINKS;
                         break;
                     default:
                         break;

@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -52,6 +53,7 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getViewState()::showCards, throwable -> getViewState().showError());
+
     }
 
     public void addCard(Card card) {

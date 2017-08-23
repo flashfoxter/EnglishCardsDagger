@@ -7,6 +7,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
+import com.carpediemsolution.englishcards.webApi.WebApi;
 import com.carpediemsolution.englishcards.webApi.WebService;
 import com.carpediemsolution.englishcards.dagger.AppComponent;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
@@ -15,8 +16,10 @@ import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.views.InsertCardView;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 import javax.inject.Inject;
+
 
 /**
  * Created by Юлия on 18.08.2017.
@@ -31,34 +34,30 @@ public class InsertCardPresenter extends MvpPresenter<InsertCardView> {
     AppComponent appComponent;
     @Inject
     DatabaseHelper databaseHelper;
+    @Inject
+    WebApi webApi;
 
     public InsertCardPresenter() {
         CardsApp.getAppComponent().inject(this);
     }
 
 
-    public void saveCard(Card card){
+    public void saveCard(String word, String translate, String description, String theme) {
 
         String token = PrefUtils.insertToken();
-
-        if (TextUtils.isEmpty(card.getWord())) {
+        if (TextUtils.isEmpty(word)) {
             getViewState().showError();
-        } else if (TextUtils.isEmpty(card.getTranslate())) {
+        } else if (TextUtils.isEmpty(translate)) {
             getViewState().showError();
         } else {
-            cardsService
-                    .uploadCards(token, card)
-                    .doOnSubscribe(getViewState()::showLoading)
-                    .doOnTerminate(getViewState()::hideLoading)
-                    .subscribe(getViewState()::showSuccess, throwable -> getViewState().showError());
-
-            try{
-            databaseHelper.getCardDAO().create(card);
-                Log.d(LOG_TAG, "created " + card);
+            Card card = new Card(word, translate, description, theme, String.valueOf(UUID.randomUUID()), 0);
+            webApi.uploadCards(token, card);
+            try {
+                databaseHelper.getCardDAO().create(card);
                 getViewState().showSuccess(card);
-            }
-            catch (SQLException e){
+            } catch (SQLException e) {
                 Log.d(LOG_TAG, e.toString());
+                getViewState().showError();
             }
         }
     }

@@ -52,7 +52,6 @@ public final class PrefUtils {
         String token = getTokenPrefs().getString(Preferences.TOKEN, "");
         if (CardUtils.isEmptyToken(token)) {
             token = getAnonTokenPrefs().getString(Preferences.ANON_TOKEN, "");
-
             if (CardUtils.isEmptyToken(token)) {
                 token = Preferences.ANONUM + new Date().toString();
                 getAnonTokenEditor().putString(Preferences.ANON_TOKEN, token).apply();
@@ -65,8 +64,9 @@ public final class PrefUtils {
         String token = getTokenPrefs().getString(Preferences.TOKEN, "");
         if (CardUtils.isEmptyToken(token)) {
             token = getAnonTokenPrefs().getString(Preferences.ANON_TOKEN, "");
-            }
+        }
 
         return token;
     }
+
 }

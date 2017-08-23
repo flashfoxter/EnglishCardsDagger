@@ -6,6 +6,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
+import com.carpediemsolution.englishcards.dagger.AppComponent;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.CardUtils;
@@ -15,8 +16,11 @@ import com.carpediemsolution.englishcards.webApi.WebService;
 
 import java.sql.SQLException;
 
+
 import javax.inject.Inject;
 
+import okhttp3.ResponseBody;
+import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -30,9 +34,12 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
     private static final String LOG_TAG = "UserCardsPresenter";
 
     @Inject
+    AppComponent appComponent;
+    @Inject
     DatabaseHelper databaseHelper;
     @Inject
     WebService cardsService;
+
 
     public UserCardsPresenter() {
         CardsApp.getAppComponent().inject(this);
@@ -55,27 +62,52 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
 
     public void deleteCard(Card card) {
 
+        Log.d(LOG_TAG, "token " + PrefUtils.getUserToken() + card.getWord());
         if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
             try {
                 databaseHelper.getCardDAO().delete(card);
             } catch (SQLException e) {
                 e.printStackTrace();
+                //
             }
         }
+
+            Observer observer = new Observer<ResponseBody>() {
+
+
+                @Override
+                public void onCompleted() {
+                    Log.d("onCompleted", "");
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("onError ", e.toString());
+                    onResponseFailure(card);
+                }
+
+                @Override
+                public void onNext(ResponseBody hotels) {
+                    Log.d("onNext ", hotels.toString());
+                    //test progressDialog
+                    isCompleted(card);
+                }
+            };
 
             cardsService.deleteCard(PrefUtils.getUserToken(), card)
                     .doOnSubscribe(getViewState()::showLoading)
                     .doOnTerminate(getViewState()::hideLoading)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe((s) -> getViewState().showLoading(),
-                            throwable -> onResponseFailure(card),
-                            () -> isCompleted(card));
+                    //.subscribe((s) -> isCompleted(card),
+                    //     throwable -> onResponseFailure(card));
+                    .subscribe(observer);
         }
-
 
     private void onResponseFailure(Card card) {
         getViewState().showError();
+        Log.d(LOG_TAG,"onResponseFailure " + card);
         if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
             try {
                 databaseHelper.getCardDAO().delete(card);
@@ -89,11 +121,13 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
 
     private void isCompleted(Card card) {
         getViewState().showSuccess(card);
+        Log.d(LOG_TAG,"card error " +card.getWord());
         try {
-            databaseHelper.getCardDAO().delete(card);
+            databaseHelper.getCardDAO().deleteCard(card);
             Log.d(LOG_TAG,"isCompleted " + card);
         } catch (SQLException e) {
-            getViewState().showError();
+           getViewState().showError();
+            Log.d(LOG_TAG,"isCompleted error " + e.toString());
         }
     }
 }

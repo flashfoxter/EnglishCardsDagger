@@ -5,7 +5,9 @@ import com.carpediemsolution.englishcards.model.User;
 
 import java.util.List;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -34,7 +36,7 @@ public class WebService {
         return mWebApi.updateCards(token, card);
     }
 
-    public Observable<Card> uploadCards(String token, Card card) {
+    public Call<Card> uploadCards(String token, Card card) {
         return mWebApi.uploadCards(token, card);
     }
 

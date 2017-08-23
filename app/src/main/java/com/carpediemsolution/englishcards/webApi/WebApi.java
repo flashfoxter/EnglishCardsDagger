@@ -5,7 +5,9 @@ import com.carpediemsolution.englishcards.model.User;
 
 import java.util.List;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -30,7 +32,7 @@ public interface WebApi {
     Observable<Card> updateCards(@Header("Token") String token, @Body Card card);
     //отправляет новую карточку на сервер
     @POST("/languageapp/controller/post_new_card")
-    Observable<Card> uploadCards(@Header("Token") String token, @Body Card card);
+    Call<Card> uploadCards(@Header("Token") String token, @Body Card card);
     //авторизирует пользователя
     @POST("/languageapp/users/password")
     Observable<ResponseBody> getUserPassword(@Body User user);

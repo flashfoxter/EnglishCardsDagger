@@ -13,7 +13,9 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = DBSchema.CardTable.NAME_ENRUS)
 public class Card {
 
-    @DatabaseField(dataType = DataType.STRING)
+    @DatabaseField(generatedId = true)
+    private int Id;
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -44,6 +46,15 @@ public class Card {
     private String description;
 
     public Card() {
+    }
+
+    public Card(String word, String translate, String description, String theme, String id, int person_id) {
+        this.word = word;
+        this.translate = translate;
+        this.description = description;
+        this.theme = theme;
+        this.id = id;
+        this.person_id = person_id;
     }
 
     public Card(int id) {

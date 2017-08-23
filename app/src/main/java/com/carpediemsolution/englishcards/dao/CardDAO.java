@@ -22,6 +22,10 @@ public class CardDAO extends BaseDaoImpl<Card, Integer> {
         return this.queryForId(id);
     }
 
+    public void deleteCard (Card card) throws SQLException {
+        this.delete(card);
+    }
+
     public List<Card>getAllCards()throws SQLException{
        return this.queryForAll();
     }
