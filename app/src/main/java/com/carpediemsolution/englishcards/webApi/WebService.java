@@ -58,7 +58,7 @@ public class WebService {
 		return mWebApi.postAllCardsToServer(token, cards);
 	}
 
-	public Observable<retrofit2.Response<Object>> deleteCard(String token, Card card){
+	public Observable<retrofit2.Response<ResponseBody>> deleteCard(String token, Card card){
 		return mWebApi.deleteCard(token, card);
 	}
 

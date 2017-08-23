@@ -20,6 +20,8 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -68,7 +70,7 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
             }
         }
 
-        Observer observer = new Observer<Object>() {
+        Observer observer = new Observer<Response<ResponseBody> >() {
             @Override
             public void onCompleted() {
                 Log.d("onCompleted", "");
@@ -82,12 +84,11 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
             }
 
             @Override
-            public void onNext(Object hotels) {
-                Log.d("onNext ", hotels.toString());
+            public void onNext(Response<ResponseBody> message) {
+                Log.d("onNext ", String.valueOf(message.code()));
                 //test progressDialog
-
-                if (hotels.equals(Preferences.CARD_DELETED)
-                        || hotels.equals(Preferences.NO_CARDS__EXIST)) {
+                if (message.equals(Preferences.CARD_DELETED)
+                        || message.equals(Preferences.NO_CARDS__EXIST)) {
                     isCompleted(card);
                 }
 
