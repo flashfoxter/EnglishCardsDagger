@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
-import com.carpediemsolution.englishcards.webApi.WebService;
+import com.carpediemsolution.englishcards.api.WebService;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.views.CardsView;
 

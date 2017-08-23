@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.webApi;
+package com.carpediemsolution.englishcards.api;
 
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.model.User;
@@ -46,7 +46,7 @@ public interface WebApi {
     Observable<ResponseBody> postAllCardsToServer(@Header("Token") String token, @Body List<Card> cards);
     //удаляет карточку пользователя
     @POST("/languageapp/controller/delete")
-    Observable <retrofit2.Response<ResponseBody>>deleteCard(@Header("Token") String token, @Body Card card);
+    Observable <ResponseBody>deleteCard(@Header("Token") String token, @Body Card card);
     //отправляет данные пользователя при регистрации
     @POST("/languageapp/users/user")
     Observable<ResponseBody> loadUser(@Body User user);

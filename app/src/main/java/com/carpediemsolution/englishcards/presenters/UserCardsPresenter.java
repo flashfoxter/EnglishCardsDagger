@@ -6,14 +6,13 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
-import com.carpediemsolution.englishcards.dagger.AppComponent;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 import com.carpediemsolution.englishcards.views.UserCardsView;
-import com.carpediemsolution.englishcards.webApi.WebService;
+import com.carpediemsolution.englishcards.api.WebService;
 
 import java.sql.SQLException;
 
@@ -21,8 +20,8 @@ import java.sql.SQLException;
 import javax.inject.Inject;
 
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -70,7 +69,7 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
             }
         }
 
-        Observer observer = new Observer<Response<ResponseBody> >() {
+        Observer observer = new Subscriber<ResponseBody >() {
             @Override
             public void onCompleted() {
                 Log.d("onCompleted", "");
@@ -84,9 +83,10 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
             }
 
             @Override
-            public void onNext(Response<ResponseBody> message) {
-                Log.d("onNext ", String.valueOf(message.code()));
-                //test progressDialog
+            public void onNext(ResponseBody message) {
+                    Log.d("onNext ", String.valueOf(message.toString()));
+
+
                 if (message.equals(Preferences.CARD_DELETED)
                         || message.equals(Preferences.NO_CARDS__EXIST)) {
                     isCompleted(card);

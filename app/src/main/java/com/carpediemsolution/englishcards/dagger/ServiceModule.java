@@ -1,7 +1,7 @@
 package com.carpediemsolution.englishcards.dagger;
 
-import com.carpediemsolution.englishcards.webApi.WebService;
-import com.carpediemsolution.englishcards.webApi.WebApi;
+import com.carpediemsolution.englishcards.api.WebService;
+import com.carpediemsolution.englishcards.api.WebApi;
 
 import javax.inject.Singleton;
 

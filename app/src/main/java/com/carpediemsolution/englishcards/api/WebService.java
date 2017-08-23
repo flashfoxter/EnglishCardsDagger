@@ -1,11 +1,10 @@
-package com.carpediemsolution.englishcards.webApi;
+package com.carpediemsolution.englishcards.api;
 
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.model.User;
 
 import java.util.List;
 
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import rx.Observable;
@@ -58,7 +57,7 @@ public class WebService {
 		return mWebApi.postAllCardsToServer(token, cards);
 	}
 
-	public Observable<retrofit2.Response<ResponseBody>> deleteCard(String token, Card card){
+	public Observable<ResponseBody> deleteCard(String token, Card card){
 		return mWebApi.deleteCard(token, card);
 	}
 

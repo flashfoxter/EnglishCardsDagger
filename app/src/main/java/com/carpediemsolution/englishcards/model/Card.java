@@ -23,7 +23,7 @@ public class Card {
     @DatabaseField(dataType = DataType.INTEGER)
     @SerializedName("person_id")
     @Expose
-    private int person_id;
+    private int personId;
 
     @DatabaseField(canBeNull = false, dataType = DataType.STRING)
     @SerializedName("theme")
@@ -48,33 +48,33 @@ public class Card {
     public Card() {
     }
 
-    public Card(String word, String translate, String description, String theme, String id, int person_id) {
+    public Card(String word, String translate, String description, String theme, String id, int personId) {
         this.word = word;
         this.translate = translate;
         this.description = description;
         this.theme = theme;
         this.id = id;
-        this.person_id = person_id;
+        this.personId = personId;
     }
 
     public Card(int id) {
-        this.person_id = id;
+        this.personId = id;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getPerson_id() {
-        return person_id;
+    public int getPersonId() {
+        return personId;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
+    public void setPersonId(int person_id) {
+        this.personId = person_id;
     }
 
     public String getTheme() {

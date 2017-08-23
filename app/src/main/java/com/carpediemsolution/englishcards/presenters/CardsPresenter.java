@@ -8,7 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
-import com.carpediemsolution.englishcards.webApi.WebService;
+import com.carpediemsolution.englishcards.api.WebService;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.views.CardsView;
 
