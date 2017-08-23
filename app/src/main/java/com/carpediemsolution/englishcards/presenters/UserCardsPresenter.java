@@ -11,6 +11,7 @@ import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
+import com.carpediemsolution.englishcards.utils.Preferences;
 import com.carpediemsolution.englishcards.views.UserCardsView;
 import com.carpediemsolution.englishcards.webApi.WebService;
 
@@ -19,7 +20,6 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 
-import okhttp3.ResponseBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -30,16 +30,12 @@ import rx.schedulers.Schedulers;
  */
 @InjectViewState
 public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
-
     private static final String LOG_TAG = "UserCardsPresenter";
 
-    @Inject
-    AppComponent appComponent;
     @Inject
     DatabaseHelper databaseHelper;
     @Inject
     WebService cardsService;
-
 
     public UserCardsPresenter() {
         CardsApp.getAppComponent().inject(this);
@@ -68,51 +64,54 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
                 databaseHelper.getCardDAO().delete(card);
             } catch (SQLException e) {
                 e.printStackTrace();
-                //
+                getViewState().showError();
             }
         }
 
-            Observer observer = new Observer<ResponseBody>() {
+        Observer observer = new Observer<Object>() {
+            @Override
+            public void onCompleted() {
+                Log.d("onCompleted", "");
 
+            }
 
-                @Override
-                public void onCompleted() {
-                    Log.d("onCompleted", "");
+            @Override
+            public void onError(Throwable e) {
+                Log.d("onError ", e.toString());
+                onResponseFailure(card);
+            }
 
-                }
+            @Override
+            public void onNext(Object hotels) {
+                Log.d("onNext ", hotels.toString());
+                //test progressDialog
 
-                @Override
-                public void onError(Throwable e) {
-                    Log.d("onError ", e.toString());
-                    onResponseFailure(card);
-                }
-
-                @Override
-                public void onNext(ResponseBody hotels) {
-                    Log.d("onNext ", hotels.toString());
-                    //test progressDialog
+                if (hotels.equals(Preferences.CARD_DELETED)
+                        || hotels.equals(Preferences.NO_CARDS__EXIST)) {
                     isCompleted(card);
                 }
-            };
 
-            cardsService.deleteCard(PrefUtils.getUserToken(), card)
-                    .doOnSubscribe(getViewState()::showLoading)
-                    .doOnTerminate(getViewState()::hideLoading)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    //.subscribe((s) -> isCompleted(card),
-                    //     throwable -> onResponseFailure(card));
-                    .subscribe(observer);
-        }
+            }
+        };
+
+        cardsService.deleteCard(PrefUtils.getUserToken(), card)
+                .doOnSubscribe(getViewState()::showLoading)
+                .doOnTerminate(getViewState()::hideLoading)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                //.subscribe((s) -> isCompleted(card),
+                //     throwable -> onResponseFailure(card));
+                .subscribe(observer);
+    }
 
     private void onResponseFailure(Card card) {
         getViewState().showError();
-        Log.d(LOG_TAG,"onResponseFailure " + card);
+        Log.d(LOG_TAG, "onResponseFailure " + card);
         if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
             try {
                 databaseHelper.getCardDAO().delete(card);
                 getViewState().showSuccess(card);
-                Log.d(LOG_TAG,"onResponseFailure " + card);
+                Log.d(LOG_TAG, "onResponseFailure " + card);
             } catch (SQLException e) {
                 getViewState().showError();
             }
@@ -121,13 +120,13 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
 
     private void isCompleted(Card card) {
         getViewState().showSuccess(card);
-        Log.d(LOG_TAG,"card error " +card.getWord());
+        Log.d(LOG_TAG, "card error " + card.getWord());
         try {
             databaseHelper.getCardDAO().deleteCard(card);
-            Log.d(LOG_TAG,"isCompleted " + card);
+            Log.d(LOG_TAG, "isCompleted " + card);
         } catch (SQLException e) {
-           getViewState().showError();
-            Log.d(LOG_TAG,"isCompleted error " + e.toString());
+            getViewState().showError();
+            Log.d(LOG_TAG, "isCompleted error " + e.toString());
         }
     }
 }

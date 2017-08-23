@@ -10,6 +10,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import rx.Observable;
 
+
 /**
  * Created by Юлия on 18.08.2017.
  */
@@ -57,7 +58,7 @@ public class WebService {
 		return mWebApi.postAllCardsToServer(token, cards);
 	}
 
-	public Observable<ResponseBody> deleteCard(String token, Card card){
+	public Observable<retrofit2.Response<Object>> deleteCard(String token, Card card){
 		return mWebApi.deleteCard(token, card);
 	}
 

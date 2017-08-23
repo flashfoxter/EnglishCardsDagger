@@ -6,7 +6,6 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.englishcards.app.CardsApp;
-import com.carpediemsolution.englishcards.dagger.AppComponent;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.webApi.WebService;
@@ -18,9 +17,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
 
 /**
  * Created by Юлия on 18.08.2017.
