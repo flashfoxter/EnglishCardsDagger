@@ -30,5 +30,4 @@ public class CardsAdapter extends BaseAdapter<RepositoryHolder, Card> {
         Card card = getItem(position);
         holder.bind(card);
     }
-
 }

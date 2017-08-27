@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.carpediemsolution.languagecards.activity.InsertNewCardActivity">
+    tools:context="com.carpediemsolution.englishcards.activities.InsertNewCardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

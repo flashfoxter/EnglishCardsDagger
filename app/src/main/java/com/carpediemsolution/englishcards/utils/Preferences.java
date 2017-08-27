@@ -5,6 +5,8 @@ package com.carpediemsolution.englishcards.utils;
  */
 public final class Preferences {
 
+    private Preferences(){}
+
     public static final String CULTURE_ART = "Culture and Art";
     public static final String MODERN_TECHNOLOGIES = "Modern technologies";
     public static final String SOCIETY_POLITICS = "Society and Politics";
@@ -32,4 +34,6 @@ public final class Preferences {
     public static final String ALREADY__EXIST = "Данный логин уже существует";
     public static final String PASSWORD_OK = "password was sent";
     public static final String PASSWORD_FAILTURE = "password was not sent";
+
+    public static final String CARD = "card";
 }

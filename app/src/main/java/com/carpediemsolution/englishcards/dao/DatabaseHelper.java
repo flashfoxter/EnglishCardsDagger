@@ -80,8 +80,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return userDAO;
     }
 
-
-
     //выполняется при закрытии приложения
     @Override
     public void close(){

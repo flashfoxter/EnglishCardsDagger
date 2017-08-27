@@ -59,7 +59,7 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
     private CardsAdapter adapter;
     private LoadingView loadingView;
 
-    private static final String LOG_TAG = "ServerCardsActivity";
+  //  private static final String LOG_TAG = "ServerCardsActivity";
 
     @OnClick(R.id.fab)
     public void onClick() {
@@ -203,6 +203,7 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
                 return true;
             }
             case (R.id.action_my_cards): {
+                //to do...
                 // Intent intent = new Intent(ServerCardsActivity.this, UserCardsActivity.class);
                 //  startActivity(intent);
                 return true;
@@ -222,17 +223,20 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
                 String token = PrefUtils.getTokenPrefs().getString(Preferences.TOKEN, "");
                 if (CardUtils.isEmptyToken(token)) {
                 } else {
+                    //to do...
                     //  Intent intent = new Intent(ServerCardsActivity.this, UserAuthorizedActivity.class);
                     // startActivity(intent);
                 }
                 return true;
             }
             case (R.id.action_about_app): {
+                //to do...
                 // Intent intent = new Intent(ServerCardsActivity.this, InformationActivity.class);
                 //  startActivity(intent);
                 return true;
             }
             case (R.id.action_sync_cards): {
+                //to do...
                 // Intent intent = new Intent(ServerCardsActivity.this, CardsSyncActivity.class);
                 //  startActivity(intent);
                 return true;
@@ -253,91 +257,91 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
                 break;
             }
             case (R.id.culture_art): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_CULTURE_ART);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CULTURE_ART);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.modern_technologies): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.society_politics): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.adventure_travel): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.nature_weather): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_NATURE_WEATHER);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_NATURE_WEATHER);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.education_profession): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.appearance_character): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.clothes_fashion): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.sport): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_SPORT);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SPORT);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.family_relationship): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.order_of_day): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.hobbies_free_time): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.customs_traditions): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.shopping): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_SHOPPING);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SHOPPING);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;
             }
             case (R.id.food_drinks): {
-                b.putString("card", DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
+                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
                 intent.putExtras(b);
                 startActivity(intent);
                 break;

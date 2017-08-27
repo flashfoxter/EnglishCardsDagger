@@ -19,11 +19,11 @@ public final class PrefUtils {
 
     private PrefUtils(){}
 
-
+    //to do...
     public static String getToken() {
         return CardsApp.getAppComponent().getContext().getSharedPreferences(Preferences.TOKEN, Context.MODE_PRIVATE).getString(Preferences.TOKEN, "");
     }
-
+    //to do...
     public static String getAnonToken() {
         return CardsApp.getAppComponent().getContext().getSharedPreferences(Preferences.ANON_TOKEN, Context.MODE_PRIVATE).getString(Preferences.ANON_TOKEN, "");
     }
@@ -36,7 +36,7 @@ public final class PrefUtils {
         return CardsApp.getAppComponent().getContext().getSharedPreferences(Preferences.ANON_TOKEN, Context.MODE_PRIVATE);
     }
 
-
+    //to do...
 	public static SharedPreferences.Editor getTokenEditor() {
 		return getTokenPrefs().edit();
 	}

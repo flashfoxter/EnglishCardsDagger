@@ -27,7 +27,7 @@ public class CardsByThemePresenter extends MvpPresenter<CardsView> {
     public void onItemClick(@NonNull Card card) {
         getViewState().showDetails(card);
     }
-
+//to do...
   /*  public void loadData(String theme) {
 
         cardsService.getCardsByTheme(theme)

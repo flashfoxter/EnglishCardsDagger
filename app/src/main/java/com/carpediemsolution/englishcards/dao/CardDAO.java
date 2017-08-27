@@ -17,7 +17,7 @@ public class CardDAO extends BaseDaoImpl<Card, Integer> {
                    Class<Card> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
-
+    //to do...
     public Card getCardById(int id) throws SQLException {
         return this.queryForId(id);
     }
@@ -27,11 +27,12 @@ public class CardDAO extends BaseDaoImpl<Card, Integer> {
     }
 
     public List<Card>getAllCards()throws SQLException{
+       //возвращает все карточки без сортировки по темам
        return this.queryForAll();
     }
-
+    //to do...
     public List<Card> getCardsByTheme() throws SQLException{
-        //метод без сортировки по теме
+        //возвращает карточки,отсортированные по темам
         return this.queryBuilder().orderBy("theme", false).query();
     }
 

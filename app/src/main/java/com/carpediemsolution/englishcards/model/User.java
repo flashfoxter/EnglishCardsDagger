@@ -11,6 +11,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = DBSchema.CardTable.USER_NAME)
 public class User {
 
+    @DatabaseField(generatedId = true)
+    private int Id;
     @DatabaseField(canBeNull = false, dataType = DataType.STRING)
     private String username;
     @DatabaseField(canBeNull = false, dataType = DataType.STRING)

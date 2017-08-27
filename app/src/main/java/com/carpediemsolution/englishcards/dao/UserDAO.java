@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 
 public class UserDAO extends BaseDaoImpl<User, Integer> {
-
+    //to do...
     public UserDAO(ConnectionSource connectionSource,
                    Class<User> dataClass) throws SQLException {
         super(connectionSource, dataClass);

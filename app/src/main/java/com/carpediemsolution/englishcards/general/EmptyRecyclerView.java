@@ -16,7 +16,6 @@ public class EmptyRecyclerView extends RecyclerView {
     @Nullable
     private View mEmptyView;
 
-    //region constructors
     public EmptyRecyclerView(Context context) {
         super(context);
     }
@@ -28,7 +27,6 @@ public class EmptyRecyclerView extends RecyclerView {
     public EmptyRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-    //endregion
 
     public void checkIfEmpty() {
         if (getAdapter().getItemCount() > 0) {

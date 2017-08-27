@@ -6,6 +6,8 @@ package com.carpediemsolution.englishcards.utils;
 
 public final class DBSchema {
 
+    private DBSchema(){}
+
     public static final class CardTable {
         public static final String NAME_ENRUS= "enrus_card";
         public static final String USER_NAME= "user";
