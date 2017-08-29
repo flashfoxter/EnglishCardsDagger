@@ -2,6 +2,7 @@ package com.carpediemsolution.englishcards.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
     EditText translateEditText;
     @BindView(R.id.new_card_description)
     EditText descriptionEditText;
+    @BindView(R.id.toolbar_card_theme)
+    Toolbar toolbar;
 
     private static final String LOG_TAG = "InsertActivity";
     private String theme;
@@ -62,13 +65,9 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
         ButterKnife.bind(this);
 
         loadingView = LoadingDialog.view(getSupportFragmentManager());
+        setTextViewFilter();
 
-        wordEditText.setFilters(UIutils.setSizeForCardEditText());
-        translateEditText.setFilters(UIutils.setSizeForCardEditText());
-        descriptionEditText.setFilters(UIutils.setSizeForCardDescriptionEditText());
-
-        Toolbar toolbarTheme = (Toolbar) findViewById(R.id.toolbar_card_theme);
-        setSupportActionBar(toolbarTheme);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -89,10 +88,16 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
     }
 
     @Override
-    public void showSuccess(Card card) {
+    public void showSuccess(@NonNull Card card) {
         Intent intent = new Intent(InsertNewCardActivity.this, UserCardsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void setTextViewFilter() {
+        wordEditText.setFilters(UIutils.setSizeForCardEditText());
+        translateEditText.setFilters(UIutils.setSizeForCardEditText());
+        descriptionEditText.setFilters(UIutils.setSizeForCardDescriptionEditText());
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
+import com.carpediemsolution.englishcards.general.BaseView;
 import com.carpediemsolution.englishcards.general.CardsAdapter;
 import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
@@ -43,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserCardsActivity extends MvpAppCompatActivity implements UserCardsView,
+public class UserCardsActivity extends MvpAppCompatActivity implements BaseView, UserCardsView,
         BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener {
 
     @InjectPresenter
@@ -55,6 +56,8 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
     View mEmptyView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private CardsAdapter adapter;
     private LoadingView loadingView;
@@ -72,38 +75,11 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
         setContentView(R.layout.activity_cards_main);
         ButterKnife.bind(this);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(UserCardsActivity.this, 3));
-        recyclerView.setEmptyView(mEmptyView);
-        adapter = new CardsAdapter(new ArrayList<>());
-        adapter.attachToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(this);
-
         loadingView = LoadingDialog.view(getSupportFragmentManager());
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        NestedScrollView nsv = (NestedScrollView) findViewById(R.id.nest_scrollview_main);
-        nsv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    fab.hide();
-                } else {
-                    fab.show();
-                }
-            }
-        });
+        initRecyclerView();
+        initToolbar();
+        initDrawer();
+        initNestedScrollView();
     }
 
     @Override
@@ -169,21 +145,56 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
                 }).show();
     }
 
+    @Override
+    public void initRecyclerView() {
+        recyclerView.setLayoutManager(new GridLayoutManager(UserCardsActivity.this, 3));
+        recyclerView.setEmptyView(mEmptyView);
+        adapter = new CardsAdapter(new ArrayList<>());
+        adapter.attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void initToolbar() {
+        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void initDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initNestedScrollView(){
+        NestedScrollView nsv = (NestedScrollView) findViewById(R.id.nest_scrollview_main);
+        nsv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    fab.hide();
+                } else {
+                    fab.show();
+                }
+            }
+        });
+    }
+
     protected void openDeleteDialog(@NonNull final Card card) {
         AlertDialog.Builder builder = new AlertDialog.Builder(UserCardsActivity.this, R.style.MyTheme_Dark_Dialog);
         builder.setMessage(getString(R.string.are_you_sure));
-        builder.setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton(getString(R.string.remove), (DialogInterface dialog, int which)-> {
                 cardsPresenter.deleteCard(card);
-            }
-        })
-                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            })
+                .setNegativeButton(getString(R.string.cancel), (DialogInterface dialog, int which)-> {
                         dialog.dismiss();
-                    }
-                }).show();
+                    }).show();
     }
 
     @Override
@@ -352,6 +363,8 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
 
 

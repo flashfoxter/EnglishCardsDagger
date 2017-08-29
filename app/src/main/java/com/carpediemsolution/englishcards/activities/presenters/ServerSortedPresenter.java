@@ -58,16 +58,4 @@ public class ServerSortedPresenter extends MvpPresenter<CardsView> {
             Log.d("SQLException ", e.toString());
         }
     }
-
-
-    //to do...
-  /*  public void loadData(String theme) {
-
-        cardsService.getCardsByTheme(theme)
-                .doOnSubscribe(getViewState()::showLoading)
-                .doOnTerminate(getViewState()::hideLoading)
-                //.compose(mLifecycleHandler.load(R.id.repositories_request))
-               .subscribe(getViewState()::showCards, throwable -> getViewState().showError());
-
-    }*/
 }

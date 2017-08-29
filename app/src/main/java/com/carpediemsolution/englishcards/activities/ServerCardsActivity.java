@@ -23,6 +23,7 @@ import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.activities.presenters.CardsPresenter;
 import com.carpediemsolution.englishcards.activities.views.CardsView;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
+import com.carpediemsolution.englishcards.general.BaseView;
 import com.carpediemsolution.englishcards.general.CardsAdapter;
 import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
@@ -41,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ServerCardsActivity extends MvpAppCompatActivity implements CardsView,
+public class ServerCardsActivity extends MvpAppCompatActivity implements CardsView,BaseView,
         BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener {
 
     @InjectPresenter
@@ -50,9 +51,11 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
     EmptyRecyclerView recyclerView;
     @BindView(R.id.empty)
     View mEmptyView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private LoadingView loadingView;
     private CardsAdapter adapter;
-    private static final String LOG_TAG = "ServerCardsActivity";
+    //  private static final String LOG_TAG = "ServerCardsActivity";
 
     @OnClick(R.id.fab)
     public void onClick() {
@@ -65,29 +68,13 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_main);
         ButterKnife.bind(this);
+
         loadingView = LoadingDialog.view(getSupportFragmentManager());
+        initRecyclerView();
+        initToolbar();
+        initDrawer();
 
-        recyclerView.setLayoutManager(new GridLayoutManager(ServerCardsActivity.this, 3));
-        recyclerView.setEmptyView(mEmptyView);
-        adapter = new CardsAdapter(new ArrayList<>());
-        adapter.attachToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(this);
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
-
 
     @Override
     public void onItemClick(@NonNull Card item) {
@@ -122,11 +109,8 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
         String dialogMessage = UIutils.dialogMessage(card);
         builder.setTitle(card.getWord() + " ~ " + UIutils.returnTheme(card))
                 .setMessage(card.getTranslate() + "\n\n" + dialogMessage)
-                .setPositiveButton(getString(R.string.add_card), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton(getString(R.string.add_card), (DialogInterface dialog, int which)-> {
                         cardsPresenter.addCard(card);
-                    }
                 })
                 .show();
     }
@@ -135,6 +119,33 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cards_main, menu);
         return true;
+    }
+
+    @Override
+    public void initRecyclerView() {
+        recyclerView.setLayoutManager(new GridLayoutManager(ServerCardsActivity.this, 3));
+        recyclerView.setEmptyView(mEmptyView);
+        adapter = new CardsAdapter(new ArrayList<>());
+        adapter.attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void initToolbar() {
+        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void initDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -296,4 +307,5 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

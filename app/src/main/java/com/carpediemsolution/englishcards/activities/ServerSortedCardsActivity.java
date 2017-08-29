@@ -17,14 +17,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.activities.presenters.ServerSortedPresenter;
-import com.carpediemsolution.englishcards.activities.views.CardsBaseView;
 import com.carpediemsolution.englishcards.activities.views.CardsView;
-import com.carpediemsolution.englishcards.activities.views.ErrorView;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
+import com.carpediemsolution.englishcards.general.BaseView;
 import com.carpediemsolution.englishcards.general.CardsAdapter;
 import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
@@ -44,7 +42,7 @@ import butterknife.ButterKnife;
  * Created by Юлия on 18.05.2017.
  */
 
-public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
+public class ServerSortedCardsActivity extends MvpAppCompatActivity implements BaseView,
         BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener, CardsView {
     @InjectPresenter
     ServerSortedPresenter presenter;
@@ -52,7 +50,8 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
     EmptyRecyclerView recyclerView;
     @BindView(R.id.empty)
     View mEmptyView;
-    //to do
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private LoadingView loadingView;
     private CardsAdapter adapter;
 
@@ -63,28 +62,13 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
         setContentView(R.layout.activity_cards_server);
         ButterKnife.bind(this);
         loadingView = LoadingDialog.view(getSupportFragmentManager());
-
-        recyclerView.setLayoutManager(new GridLayoutManager(ServerSortedCardsActivity.this, 3));
-        recyclerView.setEmptyView(mEmptyView);
-        adapter = new CardsAdapter(new ArrayList<>());
-        adapter.attachToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(this);
-
         presenter.init(returnTheme());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        initRecyclerView();
+        initToolbar();
+        initDrawer();
     }
+
 
     @Override
     public void onItemClick(@NonNull Card item) {
@@ -118,11 +102,8 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
         String dialogMessage = UIutils.dialogMessage(card);
         builder.setTitle(card.getWord() + " ~ " + UIutils.returnTheme(card))
                 .setMessage(card.getTranslate() + "\n\n" + dialogMessage)
-                .setPositiveButton(getString(R.string.add_card), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton(getString(R.string.add_card), (DialogInterface dialog, int which)-> {
                         presenter.addCard(card);
-                    }
                 })
                 .show();
     }
@@ -133,6 +114,33 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
         if (bundle != null)
             theme = bundle.getString("card");
         return theme;
+    }
+
+    @Override
+    public void initRecyclerView() {
+        recyclerView.setLayoutManager(new GridLayoutManager(ServerSortedCardsActivity.this, 3));
+        recyclerView.setEmptyView(mEmptyView);
+        adapter = new CardsAdapter(new ArrayList<>());
+        adapter.attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void initToolbar() {
+        toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void initDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
