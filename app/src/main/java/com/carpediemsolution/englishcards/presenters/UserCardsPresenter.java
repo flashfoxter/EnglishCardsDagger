@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.carpediemsolution.englishcards.api.WebApi;
 import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
@@ -13,17 +14,13 @@ import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 import com.carpediemsolution.englishcards.views.UserCardsView;
 import com.carpediemsolution.englishcards.api.WebService;
-
+import java.io.IOException;
 import java.sql.SQLException;
-
-
 import javax.inject.Inject;
-
 import okhttp3.ResponseBody;
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -35,6 +32,8 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
 
     @Inject
     DatabaseHelper databaseHelper;
+    @Inject
+    WebApi webApi;
     @Inject
     WebService cardsService;
 
@@ -58,76 +57,61 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
     }
 
     public void deleteCard(Card card) {
+        deleteCardDB(card);
+        deleteCardApi(card);
+    }
 
-        Log.d(LOG_TAG, "token " + PrefUtils.getUserToken() + card.getWord());
+    private void deleteCardDB(Card card) {
         if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
             try {
                 databaseHelper.getCardDAO().delete(card);
+                getViewState().showSuccess(card);
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 getViewState().showError();
             }
         }
+    }
 
-        Observer observer = new Subscriber<ResponseBody >() {
+    private void deleteCardApi(Card card) {
+        Call<ResponseBody> callPost = cardsService.deleteCard(PrefUtils.getUserToken(), card);
+        Log.d(LOG_TAG, "token " + PrefUtils.getUserToken() + card.getWord() + callPost.toString());
+        callPost.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onCompleted() {
-                Log.d("onCompleted", "");
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(LOG_TAG, "---onResponse " + response);
+                if (response.isSuccessful()) {
+                    try {
+                        String s = response.body().string();
+                        Log.d(LOG_TAG, "---onResponse " + s);
+                        if (s.equals(Preferences.CARD_DELETED) || s.equals(Preferences.NO_CARDS__EXIST)) {
+                            databaseHelper.getCardDAO().delete(card);
+                        }
+                    } catch (SQLException e) {
+                        getViewState().showError();
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d("onError ", e.toString());
-                onResponseFailure(card);
-            }
-
-            @Override
-            public void onNext(ResponseBody message) {
-                    Log.d("onNext ", String.valueOf(message.toString()));
-
-
-                if (message.equals(Preferences.CARD_DELETED)
-                        || message.equals(Preferences.NO_CARDS__EXIST)) {
-                    isCompleted(card);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        getViewState().showError();
+                    }
                 }
-
             }
-        };
 
-        cardsService.deleteCard(PrefUtils.getUserToken(), card)
-                .doOnSubscribe(getViewState()::showLoading)
-                .doOnTerminate(getViewState()::hideLoading)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                //.subscribe((s) -> isCompleted(card),
-                //     throwable -> onResponseFailure(card));
-                .subscribe(observer);
-    }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(LOG_TAG, "---onFailure ");
+                if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
+                    try {
+                        databaseHelper.getCardDAO().delete(card);
+                        getViewState().showSuccess(card);
 
-    private void onResponseFailure(Card card) {
-        getViewState().showError();
-        Log.d(LOG_TAG, "onResponseFailure " + card);
-        if (CardUtils.isEmptyToken(PrefUtils.getUserToken())) {
-            try {
-                databaseHelper.getCardDAO().delete(card);
-                getViewState().showSuccess(card);
-                Log.d(LOG_TAG, "onResponseFailure " + card);
-            } catch (SQLException e) {
-                getViewState().showError();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        getViewState().showError();
+                    }
+                }
             }
-        }
-    }
-
-    private void isCompleted(Card card) {
-        getViewState().showSuccess(card);
-        Log.d(LOG_TAG, "card error " + card.getWord());
-        try {
-            databaseHelper.getCardDAO().deleteCard(card);
-            Log.d(LOG_TAG, "isCompleted " + card);
-        } catch (SQLException e) {
-            getViewState().showError();
-            Log.d(LOG_TAG, "isCompleted error " + e.toString());
-        }
+        });
     }
 }

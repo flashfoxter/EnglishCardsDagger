@@ -20,7 +20,7 @@ public class RetrofitModule {
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 				.addConverterFactory(GsonConverterFactory.create())
 				.baseUrl("http://cards.carpediemsolutions.ru/")
-				//.baseUrl("http://85.143.215.135/")
+				//.baseUrl("http://192.168.1.52:8081/")
 				.build();
 	}
 }

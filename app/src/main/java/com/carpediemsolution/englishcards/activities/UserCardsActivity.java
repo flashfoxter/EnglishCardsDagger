@@ -58,7 +58,6 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
 
     private CardsAdapter adapter;
     private LoadingView loadingView;
-
   //  private static final String LOG_TAG = "ServerCardsActivity";
 
     @OnClick(R.id.fab)
@@ -137,7 +136,7 @@ public class UserCardsActivity extends MvpAppCompatActivity implements UserCards
 
     @Override
     public void showSuccess() {
-
+     //to do
     }
 
     @Override

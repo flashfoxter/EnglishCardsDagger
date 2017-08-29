@@ -46,7 +46,7 @@ public interface WebApi {
     Observable<ResponseBody> postAllCardsToServer(@Header("Token") String token, @Body List<Card> cards);
     //удаляет карточку пользователя
     @POST("/languageapp/controller/delete")
-    Observable <ResponseBody>deleteCard(@Header("Token") String token, @Body Card card);
+    Call<ResponseBody> deleteCard(@Header("Token") String token, @Body Card card);
     //отправляет данные пользователя при регистрации
     @POST("/languageapp/users/user")
     Observable<ResponseBody> loadUser(@Body User user);

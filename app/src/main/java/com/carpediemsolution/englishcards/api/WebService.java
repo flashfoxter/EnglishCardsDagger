@@ -58,7 +58,7 @@ public class WebService {
 		return mWebApi.postAllCardsToServer(token, cards);
 	}
 
-	public Observable<ResponseBody> deleteCard(String token, Card card){
+	public Call<ResponseBody> deleteCard(String token, Card card){
 		return mWebApi.deleteCard(token, card);
 	}
     //to do...
