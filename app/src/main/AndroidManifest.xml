@@ -33,5 +33,12 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+            android:name="com.carpediemsolution.englishcards.activities.ServerSortedCardsActivity"
+            android:label=" "
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
     </application>
 </manifest>

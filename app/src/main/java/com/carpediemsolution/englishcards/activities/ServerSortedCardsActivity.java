@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -41,7 +42,7 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
         BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener{
     @InjectPresenter
     ServerSortedPresenter presenter;
-    @BindView(R.id.recyclerView)
+    @BindView(R.id.card_recycler_view)
     EmptyRecyclerView recyclerView;
     @BindView(R.id.empty)
     View mEmptyView;
@@ -49,12 +50,11 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
     private LoadingView loadingView;
     private CardsAdapter adapter;
     // private static final String LOG_TAG = "ServerListActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_server);
-
+        ButterKnife.bind(this);
         loadingView = LoadingDialog.view(getSupportFragmentManager());
 
         recyclerView.setLayoutManager(new GridLayoutManager(ServerSortedCardsActivity.this, 3));
@@ -97,6 +97,16 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
     @Override
     public void showCards(@NonNull List<Card> cards) {
         adapter.changeDataSet(cards);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
     @Override
