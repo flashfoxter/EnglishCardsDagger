@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities.views;
+package com.carpediemsolution.englishcards.cards.views;
 
 import android.support.annotation.NonNull;
 

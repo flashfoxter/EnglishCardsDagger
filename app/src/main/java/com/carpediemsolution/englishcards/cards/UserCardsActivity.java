@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities;
+package com.carpediemsolution.englishcards.cards;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,13 +29,13 @@ import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.activities.presenters.UserCardsPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.UserCardsPresenter;
 import com.carpediemsolution.englishcards.utils.DBSchema;
 import com.carpediemsolution.englishcards.utils.StringUtils;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
-import com.carpediemsolution.englishcards.activities.views.UserCardsView;
+import com.carpediemsolution.englishcards.cards.views.UserCardsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,10 +207,9 @@ public class UserCardsActivity extends MvpAppCompatActivity implements BaseView,
                 return true;
             }
             case (R.id.action_my_cards): {
-                //to do...
-                // Intent intent = new Intent(ServerCardsActivity.this, UserCardsActivity.class);
-                //  startActivity(intent);
-                return true;
+                Intent intent = new Intent(UserCardsActivity.this, UserCardsActivity.class);
+                startActivity(intent);
+                return  true;
             }
 
             case (R.id.action_line): {
@@ -252,106 +251,72 @@ public class UserCardsActivity extends MvpAppCompatActivity implements BaseView,
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Intent intent = new Intent(UserCardsActivity.this, ServerSortedCardsActivity.class);
-        Bundle b = new Bundle();
         switch (item.getItemId()) {
-            case (R.id.all_items): {
-                Intent intentAll = new Intent(UserCardsActivity.this, ServerCardsActivity.class);
-                startActivity(intentAll);
-                break;
-            }
             case (R.id.culture_art): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CULTURE_ART);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_CULTURE_ART);
                 break;
             }
             case (R.id.modern_technologies): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_MODERN_TECHNOLOGIES);
                 break;
             }
             case (R.id.society_politics): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_SOCIETY_POLITICS);
                 break;
             }
             case (R.id.adventure_travel): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_ADVENTURE_TRAVEL);
                 break;
             }
             case (R.id.nature_weather): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_NATURE_WEATHER);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_NATURE_WEATHER);
                 break;
             }
             case (R.id.education_profession): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_EDUCATION_PROFESSION);
                 break;
             }
             case (R.id.appearance_character): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_APPEARANCE_CHARACTER);
                 break;
             }
             case (R.id.clothes_fashion): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_CLOTHES_FASHION);
                 break;
             }
             case (R.id.sport): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SPORT);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_SPORT);
                 break;
             }
             case (R.id.family_relationship): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_FAMILY_RELATIONSHIP);
                 break;
             }
             case (R.id.order_of_day): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_THE_ORDER_OF_DAY);
                 break;
             }
             case (R.id.hobbies_free_time): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_HOBBIES_FREE_TIME);
                 break;
             }
             case (R.id.customs_traditions): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_CUSTOMS_TRADITIONS);
                 break;
             }
             case (R.id.shopping): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_SHOPPING);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_SHOPPING);
                 break;
             }
             case (R.id.food_drinks): {
-                b.putString(Preferences.CARD, DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
-                intent.putExtras(b);
-                startActivity(intent);
+                cardsPresenter.loadCardsByTheme(DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
                 break;
             }
-            default:
+            case (R.id.all_items): {
+               cardsPresenter.loadData();
                 break;
+            }
+            default:break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

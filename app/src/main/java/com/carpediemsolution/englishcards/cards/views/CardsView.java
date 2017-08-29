@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities.views;
+package com.carpediemsolution.englishcards.cards.views;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;

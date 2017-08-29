@@ -3,10 +3,10 @@ package com.carpediemsolution.englishcards.dagger;
 import android.content.Context;
 
 import com.carpediemsolution.englishcards.app.CardsApp;
-import com.carpediemsolution.englishcards.activities.presenters.ServerSortedPresenter;
-import com.carpediemsolution.englishcards.activities.presenters.CardsPresenter;
-import com.carpediemsolution.englishcards.activities.presenters.InsertCardPresenter;
-import com.carpediemsolution.englishcards.activities.presenters.UserCardsPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.ServerSortedPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.CardsPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.InsertCardPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.UserCardsPresenter;
 
 import javax.inject.Singleton;
 

@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities;
+package com.carpediemsolution.englishcards.cards;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
-import com.carpediemsolution.englishcards.activities.presenters.ServerSortedPresenter;
-import com.carpediemsolution.englishcards.activities.views.CardsView;
+import com.carpediemsolution.englishcards.cards.presenters.ServerSortedPresenter;
+import com.carpediemsolution.englishcards.cards.views.CardsView;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
 import com.carpediemsolution.englishcards.general.BaseView;
 import com.carpediemsolution.englishcards.general.CardsAdapter;

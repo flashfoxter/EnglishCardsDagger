@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities;
+package com.carpediemsolution.englishcards.cards;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,10 +21,10 @@ import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.activities.presenters.InsertCardPresenter;
+import com.carpediemsolution.englishcards.cards.presenters.InsertCardPresenter;
 import com.carpediemsolution.englishcards.utils.DBSchema;
-import com.carpediemsolution.englishcards.activities.views.ErrorView;
-import com.carpediemsolution.englishcards.activities.views.InsertCardView;
+import com.carpediemsolution.englishcards.cards.views.ErrorView;
+import com.carpediemsolution.englishcards.cards.views.InsertCardView;
 import com.carpediemsolution.englishcards.utils.StringUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 

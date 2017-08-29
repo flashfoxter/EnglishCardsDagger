@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.activities.presenters;
+package com.carpediemsolution.englishcards.cards.presenters;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,7 +10,7 @@ import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
-import com.carpediemsolution.englishcards.activities.views.InsertCardView;
+import com.carpediemsolution.englishcards.cards.views.InsertCardView;
 
 import java.sql.SQLException;
 import java.util.UUID;

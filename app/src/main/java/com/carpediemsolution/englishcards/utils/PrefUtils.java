@@ -2,9 +2,7 @@ package com.carpediemsolution.englishcards.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import com.carpediemsolution.englishcards.activities.UserCardsActivity;
 import com.carpediemsolution.englishcards.app.CardsApp;
 
 import java.util.Date;

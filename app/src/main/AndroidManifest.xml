@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.UserCardsActivity"
+        <activity android:name=".cards.UserCardsActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
         </activity>
 
         <activity
-            android:name="com.carpediemsolution.englishcards.activities.ServerCardsActivity"
+            android:name="com.carpediemsolution.englishcards.cards.ServerCardsActivity"
             android:label=" "
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.carpediemsolution.englishcards.activities.InsertNewCardActivity"
+            android:name="com.carpediemsolution.englishcards.cards.InsertNewCardActivity"
             android:label=" "
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.carpediemsolution.englishcards.activities.ServerSortedCardsActivity"
+            android:name="com.carpediemsolution.englishcards.cards.ServerSortedCardsActivity"
             android:label=" "
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>

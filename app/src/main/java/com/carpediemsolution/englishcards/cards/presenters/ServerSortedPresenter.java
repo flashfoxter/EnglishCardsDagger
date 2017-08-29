@@ -1,11 +1,11 @@
-package com.carpediemsolution.englishcards.activities.presenters;
+package com.carpediemsolution.englishcards.cards.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.carpediemsolution.englishcards.activities.views.CardsView;
+import com.carpediemsolution.englishcards.cards.views.CardsView;
 import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.api.WebService;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
