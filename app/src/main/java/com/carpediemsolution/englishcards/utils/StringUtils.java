@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
  * Created by Юлия on 27.04.2017.
  */
 
-public final class UIutils {
+public final class StringUtils {
 
-    private UIutils() {}
+    private StringUtils() {}
 
     public static InputFilter[] setSizeForCardEditText() {
         int maxLength = 40;

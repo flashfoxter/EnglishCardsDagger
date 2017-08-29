@@ -31,14 +31,14 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:layout_margin="0dp"
+                    android:layout_margin="@dimen/margin_0"
                     android:background="?attr/colorPrimary"
-                    android:padding="0dp"
-                    app:contentInsetEnd="0dp"
-                    app:contentInsetLeft="0dp"
-                    app:contentInsetRight="0dp"
-                    app:contentInsetStart="0dp"
-                    app:contentInsetStartWithNavigation="0dp"
+                    android:padding="@dimen/margin_0"
+                    app:contentInsetEnd="@dimen/margin_0"
+                    app:contentInsetLeft="@dimen/margin_0"
+                    app:contentInsetRight="@dimen/margin_0"
+                    app:contentInsetStart="@dimen/margin_0"
+                    app:contentInsetStartWithNavigation="@dimen/margin_0"
                     app:popupTheme="@style/MyApp.ActionBar">
 
                 </android.support.v7.widget.Toolbar>
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/margin_medium"
             app:srcCompat="@drawable/ic_add_white_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>

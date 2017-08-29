@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
@@ -30,7 +29,7 @@ import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.DBSchema;
-import com.carpediemsolution.englishcards.utils.UIutils;
+import com.carpediemsolution.englishcards.utils.StringUtils;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
@@ -106,8 +105,8 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
     @Override
     public void showDetails(@NonNull Card card) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyTheme_Dark_Dialog);
-        String dialogMessage = UIutils.dialogMessage(card);
-        builder.setTitle(card.getWord() + " ~ " + UIutils.returnTheme(card))
+        String dialogMessage = StringUtils.dialogMessage(card);
+        builder.setTitle(card.getWord() + " ~ " + StringUtils.returnTheme(card))
                 .setMessage(card.getTranslate() + "\n\n" + dialogMessage)
                 .setPositiveButton(getString(R.string.add_card), (DialogInterface dialog, int which)-> {
                         cardsPresenter.addCard(card);

@@ -39,7 +39,6 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
         loadData();
     }
 
-
     public void onItemClick(@NonNull Card card) {
         getViewState().showDetails(card);
     }

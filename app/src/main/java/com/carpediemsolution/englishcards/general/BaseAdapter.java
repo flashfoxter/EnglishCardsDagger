@@ -119,7 +119,5 @@ public abstract class BaseAdapter<VH extends RecyclerView.ViewHolder, T> extends
     public interface OnItemClickListener<T> {
 
         void onItemClick(@NonNull T item);
-
     }
-
 }

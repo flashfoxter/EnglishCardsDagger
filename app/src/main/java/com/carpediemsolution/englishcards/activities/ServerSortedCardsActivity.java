@@ -28,7 +28,7 @@ import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.utils.UIutils;
+import com.carpediemsolution.englishcards.utils.StringUtils;
 import com.carpediemsolution.englishcards.utils.DBSchema;
 
 import java.util.ArrayList;
@@ -99,8 +99,8 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements B
     @Override
     public void showDetails(@NonNull Card card) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyTheme_Dark_Dialog);
-        String dialogMessage = UIutils.dialogMessage(card);
-        builder.setTitle(card.getWord() + " ~ " + UIutils.returnTheme(card))
+        String dialogMessage = StringUtils.dialogMessage(card);
+        builder.setTitle(card.getWord() + " ~ " + StringUtils.returnTheme(card))
                 .setMessage(card.getTranslate() + "\n\n" + dialogMessage)
                 .setPositiveButton(getString(R.string.add_card), (DialogInterface dialog, int which)-> {
                         presenter.addCard(card);

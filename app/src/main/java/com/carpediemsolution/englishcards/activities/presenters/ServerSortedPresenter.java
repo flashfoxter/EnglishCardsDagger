@@ -32,7 +32,6 @@ public class ServerSortedPresenter extends MvpPresenter<CardsView> {
 
     public ServerSortedPresenter() {
         CardsApp.getAppComponent().inject(this);
-        // loadData();
     }
 
     public void init(String theme) {

@@ -25,7 +25,7 @@ import com.carpediemsolution.englishcards.activities.presenters.InsertCardPresen
 import com.carpediemsolution.englishcards.utils.DBSchema;
 import com.carpediemsolution.englishcards.activities.views.ErrorView;
 import com.carpediemsolution.englishcards.activities.views.InsertCardView;
-import com.carpediemsolution.englishcards.utils.UIutils;
+import com.carpediemsolution.englishcards.utils.StringUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 
 import butterknife.BindView;
@@ -95,9 +95,9 @@ public class InsertNewCardActivity extends MvpAppCompatActivity implements Inser
     }
 
     private void setTextViewFilter() {
-        wordEditText.setFilters(UIutils.setSizeForCardEditText());
-        translateEditText.setFilters(UIutils.setSizeForCardEditText());
-        descriptionEditText.setFilters(UIutils.setSizeForCardDescriptionEditText());
+        wordEditText.setFilters(StringUtils.setSizeForCardEditText());
+        translateEditText.setFilters(StringUtils.setSizeForCardEditText());
+        descriptionEditText.setFilters(StringUtils.setSizeForCardDescriptionEditText());
     }
 
     @Override
