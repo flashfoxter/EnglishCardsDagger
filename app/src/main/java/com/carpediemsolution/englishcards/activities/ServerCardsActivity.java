@@ -20,15 +20,15 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
+import com.carpediemsolution.englishcards.activities.presenters.CardsPresenter;
+import com.carpediemsolution.englishcards.activities.views.CardsView;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
 import com.carpediemsolution.englishcards.general.CardsAdapter;
 import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.presenters.CardsPresenter;
 import com.carpediemsolution.englishcards.utils.DBSchema;
-import com.carpediemsolution.englishcards.views.CardsView;
 import com.carpediemsolution.englishcards.utils.UIutils;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
@@ -46,16 +46,13 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
 
     @InjectPresenter
     CardsPresenter cardsPresenter;
-
     @BindView(R.id.recyclerView)
     EmptyRecyclerView recyclerView;
     @BindView(R.id.empty)
     View mEmptyView;
-
     private LoadingView loadingView;
     private CardsAdapter adapter;
     private static final String LOG_TAG = "ServerCardsActivity";
-
 
     @OnClick(R.id.fab)
     public void onClick() {
@@ -68,7 +65,6 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_main);
         ButterKnife.bind(this);
-
         loadingView = LoadingDialog.view(getSupportFragmentManager());
 
         recyclerView.setLayoutManager(new GridLayoutManager(ServerCardsActivity.this, 3));
@@ -76,6 +72,7 @@ public class ServerCardsActivity extends MvpAppCompatActivity implements CardsVi
         adapter = new CardsAdapter(new ArrayList<>());
         adapter.attachToRecyclerView(recyclerView);
         adapter.setOnItemClickListener(this);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.parseColor(getString(R.string.color_primary)));

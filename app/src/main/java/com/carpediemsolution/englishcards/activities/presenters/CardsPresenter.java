@@ -1,4 +1,4 @@
-package com.carpediemsolution.englishcards.presenters;
+package com.carpediemsolution.englishcards.activities.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,7 +10,7 @@ import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.api.WebService;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.views.CardsView;
+import com.carpediemsolution.englishcards.activities.views.CardsView;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -44,7 +44,7 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
         getViewState().showDetails(card);
     }
 
-    public void loadData() {
+    private void loadData() {
 
         cardsService.getCards()
                 .doOnSubscribe(getViewState()::showLoading)
@@ -52,7 +52,6 @@ public class CardsPresenter extends MvpPresenter<CardsView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getViewState()::showCards, throwable -> getViewState().showError());
-
     }
 
     public void addCard(Card card) {

@@ -28,13 +28,13 @@ import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.presenters.UserCardsPresenter;
+import com.carpediemsolution.englishcards.activities.presenters.UserCardsPresenter;
 import com.carpediemsolution.englishcards.utils.DBSchema;
 import com.carpediemsolution.englishcards.utils.UIutils;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
-import com.carpediemsolution.englishcards.views.UserCardsView;
+import com.carpediemsolution.englishcards.activities.views.UserCardsView;
 
 import java.util.ArrayList;
 import java.util.List;

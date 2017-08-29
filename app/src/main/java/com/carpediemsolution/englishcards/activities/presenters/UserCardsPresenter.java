@@ -1,18 +1,17 @@
-package com.carpediemsolution.englishcards.presenters;
+package com.carpediemsolution.englishcards.activities.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.carpediemsolution.englishcards.api.WebApi;
 import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.CardUtils;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 import com.carpediemsolution.englishcards.utils.Preferences;
-import com.carpediemsolution.englishcards.views.UserCardsView;
+import com.carpediemsolution.englishcards.activities.views.UserCardsView;
 import com.carpediemsolution.englishcards.api.WebService;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,8 +31,6 @@ public class UserCardsPresenter extends MvpPresenter<UserCardsView> {
 
     @Inject
     DatabaseHelper databaseHelper;
-    @Inject
-    WebApi webApi;
     @Inject
     WebService cardsService;
 

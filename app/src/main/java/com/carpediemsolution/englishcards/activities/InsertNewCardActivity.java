@@ -20,10 +20,10 @@ import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.general.LoadingDialog;
 import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.presenters.InsertCardPresenter;
+import com.carpediemsolution.englishcards.activities.presenters.InsertCardPresenter;
 import com.carpediemsolution.englishcards.utils.DBSchema;
-import com.carpediemsolution.englishcards.views.ErrorView;
-import com.carpediemsolution.englishcards.views.InsertCardView;
+import com.carpediemsolution.englishcards.activities.views.ErrorView;
+import com.carpediemsolution.englishcards.activities.views.InsertCardView;
 import com.carpediemsolution.englishcards.utils.UIutils;
 import com.carpediemsolution.englishcards.utils.Preferences;
 
