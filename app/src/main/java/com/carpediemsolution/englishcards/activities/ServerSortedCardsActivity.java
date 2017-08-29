@@ -14,11 +14,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.englishcards.R;
 import com.carpediemsolution.englishcards.activities.presenters.ServerSortedPresenter;
-import com.carpediemsolution.englishcards.activities.views.ServerSortedCardsView;
+import com.carpediemsolution.englishcards.activities.views.CardsBaseView;
+import com.carpediemsolution.englishcards.activities.views.CardsView;
+import com.carpediemsolution.englishcards.activities.views.ErrorView;
 import com.carpediemsolution.englishcards.general.BaseAdapter;
 import com.carpediemsolution.englishcards.general.CardsAdapter;
 import com.carpediemsolution.englishcards.general.EmptyRecyclerView;
@@ -27,6 +32,7 @@ import com.carpediemsolution.englishcards.general.LoadingView;
 import com.carpediemsolution.englishcards.model.Card;
 import com.carpediemsolution.englishcards.utils.UIutils;
 import com.carpediemsolution.englishcards.utils.DBSchema;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +44,8 @@ import butterknife.ButterKnife;
  * Created by Юлия on 18.05.2017.
  */
 
-public class ServerSortedCardsActivity extends MvpAppCompatActivity implements ServerSortedCardsView,
-        BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener{
+public class ServerSortedCardsActivity extends MvpAppCompatActivity implements
+        BaseAdapter.OnItemClickListener<Card>, NavigationView.OnNavigationItemSelectedListener, CardsView {
     @InjectPresenter
     ServerSortedPresenter presenter;
     @BindView(R.id.card_recycler_view)
@@ -49,6 +55,7 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
     //to do
     private LoadingView loadingView;
     private CardsAdapter adapter;
+
     // private static final String LOG_TAG = "ServerListActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +93,8 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
 
     @Override
     public void showError() {
-        //to do
-    }
-
-    @Override
-    public void showSuccess() {
-        //to do
+        Toast.makeText(ServerSortedCardsActivity.this, R.string.error_inet,
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -101,12 +104,12 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
 
     @Override
     public void showLoading() {
-
+        loadingView.showLoading();
     }
 
     @Override
     public void hideLoading() {
-
+        loadingView.hideLoading();
     }
 
     @Override
@@ -245,7 +248,8 @@ public class ServerSortedCardsActivity extends MvpAppCompatActivity implements S
                 presenter.init(DBSchema.CardTable.Themes.THEME_FOOD_DRINKS);
                 break;
             }
-            default:break;
+            default:
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

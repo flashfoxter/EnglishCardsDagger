@@ -5,12 +5,11 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.carpediemsolution.englishcards.activities.views.ServerSortedCardsView;
+import com.carpediemsolution.englishcards.activities.views.CardsView;
 import com.carpediemsolution.englishcards.app.CardsApp;
 import com.carpediemsolution.englishcards.api.WebService;
 import com.carpediemsolution.englishcards.dao.DatabaseHelper;
 import com.carpediemsolution.englishcards.model.Card;
-import com.carpediemsolution.englishcards.activities.views.CardsView;
 import com.carpediemsolution.englishcards.utils.PrefUtils;
 
 import java.sql.SQLException;
@@ -24,7 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by Юлия on 18.08.2017.
  */
 @InjectViewState
-public class ServerSortedPresenter extends MvpPresenter<ServerSortedCardsView> {
+public class ServerSortedPresenter extends MvpPresenter<CardsView> {
 
     @Inject
     WebService cardsService;

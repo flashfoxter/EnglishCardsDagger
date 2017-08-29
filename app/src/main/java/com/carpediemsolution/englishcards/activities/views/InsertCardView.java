@@ -13,5 +13,6 @@ import com.carpediemsolution.englishcards.model.Card;
  */
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface InsertCardView extends MvpView, LoadingView, ErrorView {
+
     void showSuccess(@NonNull Card card);
 }
